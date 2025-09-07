@@ -1,91 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>ChatBot</title>
-    <style>
-      body{
-        font-family: arial;
-        margin-top: 0px;
-        margin-bottom: 0px;
-      }
-      .send-button{
-        background-color: rgb(25, 135, 84);
-        color: white;
-        padding: 12px 20px;
-        margin-left: 10px;
-        border:  none;
-        border-radius: 10px;
-        font-size: 15px;
-        cursor: pointer;
-       
-      }
-      .chat-input{
-        padding:  12px 15px;
-        border-radius: 10px;
-        border-width: 1px;
-        font-size: 15px;
-        flex-grow: 1;
-        
-      }
-      .chat-input-container{
-        display: flex;
-        margin-bottom: 60px;
+import { useState } from 'react'
+import { useRef } from 'react'
+import { useEffect } from 'react'
+import { Chatbot } from 'supersimpledev';
+import './App.css'
 
-      }
-      .app-container{
-        max-width:  600px;
-        margin-left: auto;
-        margin-right: auto;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        
-
-      }
-      .chat-message-user{
-        display: flex;
-        justify-content: end;
-        align-items: start;
-      }
-      .chat-message-text{
-        
-        background-color: rgb(238, 238, 238);
-        padding: 15px 20px;
-        border-radius: 10px;
-        margin-right: 10px ;
-        margin-left: 10px; 
-        margin-bottom: 10px;
-        max-width: 300px;
-
-        
-      }
-      .chat-message-robot{
-        display: flex;
-        align-items: start;
-      }
-      .chat-message-profile{
-        width: 45px;
-
-      }
-      .chat-message-container{
-        flex-grow: 1;
-        margin-top: 20px;
-        overflow: scroll;
-        scrollbar-width: none;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="js-container"></div>
-    <div class="js-hi"></div>
-    <script src="react-basics.js"></script>
-    <script src="https://unpkg.com/supersimpledev/react.js"></script>
-    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
-    <script src="https://unpkg.com/supersimpledev/ChatBot.js"></script>
-    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
-    <script type="text/babel">
-      function ChatInput({chatMessages,setChatMessages}){
-        const [inputText,  setInputText ] = React.useState("");
+function ChatInput({chatMessages,setChatMessages}){
+        const [inputText,  setInputText ] = useState("");
         function saveInputText(event){
            setInputText(event.target.value);
 
@@ -164,22 +84,22 @@
             : "chat-message-robot"
            }>
             {sender === "robot" && 
-            ( <img src = "robot.png" 
+            ( <img src = "src/assets/robot.png" 
             className = "chat-message-profile"/>)} 
             <div className = "chat-message-text">
             {message}
             </div>
             {sender === "user" && 
-            (<img src= "user.png" alt = "image" 
+            (<img src= "  src/assets/user.png" alt = "image" 
             className = "chat-message-profile"/> )}
           </div>
         );}
       
       function ChatMessages({chatMessages}){  
         
-        const chatMessagsRef = React.useRef(null);
+        const chatMessagsRef =useRef(null);
         
-        React.useEffect(() =>{
+          useEffect(() =>{
           const containerElem = chatMessagsRef.current;
           if (containerElem){
             containerElem.scrollTop  = containerElem.scrollHeight;  
@@ -210,11 +130,11 @@
 
 
       }
-            
-        
-      function App(){
+   
 
-        const [chatMessages ,setChatMessages]  = React.useState([
+function App(){
+
+        const [chatMessages ,setChatMessages]  = useState([
             
           {
             message : "hello Chatbot" ,
@@ -224,16 +144,7 @@
             message : "Hello! how can i help you?" ,
               sender  : "robot",
               id: "id2"
-          },{
-            message : "can you get me todays date ?" ,
-              sender : "user",
-              id: "id3"
-        
-          } ,{message : "Todays date is september 27" ,
-              sender : "robot",
-              id: "id4"
-        }
-         
+          }
         ]);
         
         // const chatMessages = array[0];
@@ -279,12 +190,4 @@
         //   </>
          );
       }
-     
-    
-      
-      const container = document.querySelector('.js-container'); 
-      ReactDOM.createRoot(container).render(<App></App>);
-
-    </script>
-  </body>
-</html>  
+export default App
